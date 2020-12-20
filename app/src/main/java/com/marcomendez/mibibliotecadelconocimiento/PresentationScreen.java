@@ -12,8 +12,6 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 public class PresentationScreen extends AppCompatActivity {
-    private static final String NAVIGATION_BAR_COLOR = "";
-    private static final String STATUS_BAR_COLOR = "";
     private RelativeLayout layout;
 
     @Override
