@@ -25,11 +25,11 @@ public class PresentationScreen extends AppCompatActivity {
     private static final int DEL_TAG_NAME_ORIGINAL_HEIGHT = 71;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH = 864;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT = 73;
-    private static final int DELTA_TIME = 42;
+    private static final int DELTA_TIME = 32;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
-    private int screenWidth,screenHeight;
+    private int screenWidth,screenHeight,miTagNameYPosLimit;
     private volatile boolean appHasFocus;
 
     @Override
@@ -51,8 +51,11 @@ public class PresentationScreen extends AppCompatActivity {
         int[] miIR = {R.drawable.mi_tag_name};
         int miTagNameWidth = screenWidth*MI_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
         int miTagNameHeight = screenHeight*MI_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        miTagName = new GameObject2D(this, 0, 0, miTagNameWidth, miTagNameHeight,
-                                     miIR);
+        int miTagNameXPos = (screenWidth/2)-(miTagNameWidth/2);
+        int miTagNameYPos = 0;
+        miTagNameYPosLimit = screenHeight/5;
+        miTagName = new GameObject2D(this, miTagNameXPos, miTagNameYPos, miTagNameWidth,
+                                     miTagNameHeight, miIR);
 
 
         int[] bibliotecaIR = {R.drawable.biblioteca_tag_name};
@@ -76,9 +79,9 @@ public class PresentationScreen extends AppCompatActivity {
                 conocimientoTagNameWidth,conocimientoTagNameHeight,conocimientoIR);
 
         layout.addView(miTagName);
-        layout.addView(bibliotecaTagName);
-        layout.addView(delTagName);
-        layout.addView(conocimientoTagName);
+        //layout.addView(bibliotecaTagName);
+        //layout.addView(delTagName);
+        //layout.addView(conocimientoTagName);
 
         startGame();
     }
@@ -89,9 +92,10 @@ public class PresentationScreen extends AppCompatActivity {
             public void run() {
                 while(true){
                     try{Thread.sleep(DELTA_TIME);}catch(InterruptedException e){e.printStackTrace();}
-                    System.out.println("App has focus? " + appHasFocus);
-                    update();
-                    render();
+                    if(appHasFocus){
+                        update();
+                        render();
+                    }
                 }
             }
         };
@@ -103,7 +107,9 @@ public class PresentationScreen extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
+                if(miTagName.getYPos() <= miTagNameYPosLimit){
+                    miTagName.setYPos(miTagName.getYPos()+10);
+                }
             }
         });
     }
