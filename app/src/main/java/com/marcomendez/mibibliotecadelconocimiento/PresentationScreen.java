@@ -26,6 +26,7 @@ public class PresentationScreen extends AppCompatActivity {
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH = 864;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT = 73;
     private static final int DELTA_TIME = 32;
+    private static final int MI_TAG_NAME_ANIMATION_SPEED = 10;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
@@ -74,7 +75,7 @@ public class PresentationScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if(miTagName.getYPos() <= miTagNameYPosLimit){
-                    miTagName.setYPos(miTagName.getYPos()+10);
+                    miTagName.setYPos(miTagName.getYPos() + MI_TAG_NAME_ANIMATION_SPEED);
                 }
             }
         });
