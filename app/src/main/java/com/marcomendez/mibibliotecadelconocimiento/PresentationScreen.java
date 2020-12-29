@@ -25,10 +25,12 @@ public class PresentationScreen extends AppCompatActivity {
     private static final int DEL_TAG_NAME_ORIGINAL_HEIGHT = 71;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH = 864;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT = 73;
+    private static final int DELTA_TIME = 42;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
     private int screenWidth,screenHeight;
+    private volatile boolean appHasFocus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +79,51 @@ public class PresentationScreen extends AppCompatActivity {
         layout.addView(bibliotecaTagName);
         layout.addView(delTagName);
         layout.addView(conocimientoTagName);
+
+        startGame();
+    }
+
+    private void startGame(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    try{Thread.sleep(DELTA_TIME);}catch(InterruptedException e){e.printStackTrace();}
+                    System.out.println("App has focus? " + appHasFocus);
+                    update();
+                    render();
+                }
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    private void update(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
+    private void render(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {// Windows has focus
+            appHasFocus = true;
+        }else{// Windows does not have focus
+            appHasFocus = false;
+        }
     }
 }
