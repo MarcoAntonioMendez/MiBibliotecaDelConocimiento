@@ -47,41 +47,7 @@ public class PresentationScreen extends AppCompatActivity {
         screenWidth = metrics.widthPixels;
         screenHeight = metrics.heightPixels;
 
-        // Setting all the tags part of the title.
-        int[] miIR = {R.drawable.mi_tag_name};
-        int miTagNameWidth = screenWidth*MI_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
-        int miTagNameHeight = screenHeight*MI_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        int miTagNameXPos = (screenWidth/2)-(miTagNameWidth/2);
-        int miTagNameYPos = 0;
-        miTagNameYPosLimit = screenHeight/5;
-        miTagName = new GameObject2D(this, miTagNameXPos, miTagNameYPos, miTagNameWidth,
-                                     miTagNameHeight, miIR);
-
-
-        int[] bibliotecaIR = {R.drawable.biblioteca_tag_name};
-        int bibliotecaTagNameWidth = screenWidth*BIBLIOTECA_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
-        int bibliotecaTagNameHeight = screenHeight*BIBLIOTECA_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        bibliotecaTagName = new GameObject2D(this, 0, 0,
-                bibliotecaTagNameWidth, bibliotecaTagNameHeight,bibliotecaIR);
-
-
-        int[] delIR = {R.drawable.del_tag_name};
-        int delTagNameWidth = screenWidth*DEL_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
-        int delTagNameHeight = screenHeight*DEL_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        delTagName = new GameObject2D(this, 0, 0,
-                delTagNameWidth, delTagNameHeight, delIR);
-
-
-        int[] conocimientoIR = {R.drawable.conocimiento_tag_name};
-        int conocimientoTagNameWidth = screenWidth*CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
-        int conocimientoTagNameHeight = screenHeight*CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        conocimientoTagName = new GameObject2D(this,0,0,
-                conocimientoTagNameWidth,conocimientoTagNameHeight,conocimientoIR);
-
-        layout.addView(miTagName);
-        //layout.addView(bibliotecaTagName);
-        //layout.addView(delTagName);
-        //layout.addView(conocimientoTagName);
+        setWords();
 
         startGame();
     }
@@ -131,5 +97,45 @@ public class PresentationScreen extends AppCompatActivity {
         }else{// Windows does not have focus
             appHasFocus = false;
         }
+    }
+
+    //Methods called only in constructor
+    private void setWords(){
+        // Setting all the tags part of the title.
+        int[] miIR = {R.drawable.mi_tag_name};
+        int miTagNameWidth = screenWidth*MI_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
+        int miTagNameHeight = screenHeight*MI_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
+        int miTagNameXPos = (screenWidth/2)-(miTagNameWidth/2);
+        int miTagNameYPos = 0;
+        miTagNameYPosLimit = screenHeight/5;
+        miTagName = new GameObject2D(this, miTagNameXPos, miTagNameYPos, miTagNameWidth,
+                miTagNameHeight, miIR);
+
+
+        int[] bibliotecaIR = {R.drawable.biblioteca_tag_name};
+        int bibliotecaTagNameWidth = screenWidth*BIBLIOTECA_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
+        int bibliotecaTagNameHeight = screenHeight*BIBLIOTECA_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
+        bibliotecaTagName = new GameObject2D(this, 0, 0,
+                bibliotecaTagNameWidth, bibliotecaTagNameHeight,bibliotecaIR);
+
+
+        int[] delIR = {R.drawable.del_tag_name};
+        int delTagNameWidth = screenWidth*DEL_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
+        int delTagNameHeight = screenHeight*DEL_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
+        delTagName = new GameObject2D(this, 0, 0,
+                delTagNameWidth, delTagNameHeight, delIR);
+
+
+        int[] conocimientoIR = {R.drawable.conocimiento_tag_name};
+        int conocimientoTagNameWidth = screenWidth*CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
+        int conocimientoTagNameHeight = screenHeight*CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
+        conocimientoTagName = new GameObject2D(this,0,0,
+                conocimientoTagNameWidth,conocimientoTagNameHeight,conocimientoIR);
+
+        layout.addView(miTagName);
+        // I will uncomment when the words xPos and YPos are ready
+        //layout.addView(bibliotecaTagName);
+        //layout.addView(delTagName);
+        //layout.addView(conocimientoTagName);
     }
 }
