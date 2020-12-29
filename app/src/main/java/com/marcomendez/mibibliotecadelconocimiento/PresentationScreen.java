@@ -27,10 +27,11 @@ public class PresentationScreen extends AppCompatActivity {
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT = 73;
     private static final int DELTA_TIME = 32;
     private static final int MI_TAG_NAME_ANIMATION_SPEED = 10;
+    private static final int BIBLIOTECA_TAG_NAME_ANIMATION_SPEED = 5;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
-    private int screenWidth,screenHeight,miTagNameYPosLimit;
+    private int screenWidth,screenHeight,miTagNameYPosLimit,bibliotecaTagNameXPosLimit;
     private volatile boolean appHasFocus;
 
     @Override
@@ -77,6 +78,10 @@ public class PresentationScreen extends AppCompatActivity {
                 if(miTagName.getYPos() <= miTagNameYPosLimit){
                     miTagName.setYPos(miTagName.getYPos() + MI_TAG_NAME_ANIMATION_SPEED);
                 }
+
+                if(bibliotecaTagName.getXPos() <= bibliotecaTagNameXPosLimit){
+                    bibliotecaTagName.setXPos(bibliotecaTagName.getXPos() + BIBLIOTECA_TAG_NAME_ANIMATION_SPEED);
+                }
             }
         });
     }
@@ -116,7 +121,10 @@ public class PresentationScreen extends AppCompatActivity {
         int[] bibliotecaIR = {R.drawable.biblioteca_tag_name};
         int bibliotecaTagNameWidth = screenWidth*BIBLIOTECA_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
         int bibliotecaTagNameHeight = screenHeight*BIBLIOTECA_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        bibliotecaTagName = new GameObject2D(this, 0, 0,
+        int bibliotecaTagNameXPos = 0;
+        int bibliotecaTagNameYPos = miTagNameYPosLimit + miTagNameHeight;
+        bibliotecaTagNameXPosLimit = (screenWidth/2)-(bibliotecaTagNameWidth/2);
+        bibliotecaTagName = new GameObject2D(this, bibliotecaTagNameXPos, bibliotecaTagNameYPos,
                 bibliotecaTagNameWidth, bibliotecaTagNameHeight,bibliotecaIR);
 
 
@@ -134,8 +142,8 @@ public class PresentationScreen extends AppCompatActivity {
                 conocimientoTagNameWidth,conocimientoTagNameHeight,conocimientoIR);
 
         layout.addView(miTagName);
+        layout.addView(bibliotecaTagName);
         // I will uncomment when the words xPos and YPos are ready
-        //layout.addView(bibliotecaTagName);
         //layout.addView(delTagName);
         //layout.addView(conocimientoTagName);
     }
