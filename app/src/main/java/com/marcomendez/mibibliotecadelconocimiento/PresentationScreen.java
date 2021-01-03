@@ -35,7 +35,7 @@ public class PresentationScreen extends AppCompatActivity {
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
     private int screenWidth,screenHeight,miTagNameYPosLimit,bibliotecaTagNameXPosLimit;
     private float miTagNameAnimationSpeed,bibliotecaTagNameAnimationSpeed,delTagNameAnimationSpeed;
-    private float conocimientoTagNameAnimationSpeed;
+    private float conocimientoTagNameAnimationSpeed,delTagNameXPosLimit;
     private volatile boolean appHasFocus;
 
     @Override
@@ -85,6 +85,10 @@ public class PresentationScreen extends AppCompatActivity {
 
                 if(bibliotecaTagName.getXPos() <= bibliotecaTagNameXPosLimit){
                     bibliotecaTagName.setXPos(bibliotecaTagName.getXPos() + bibliotecaTagNameAnimationSpeed);
+                }
+
+                if(delTagName.getXPos() >= delTagNameXPosLimit){
+                    delTagName.setXPos(delTagName.getXPos() - delTagNameAnimationSpeed);
                 }
             }
         });
@@ -139,7 +143,12 @@ public class PresentationScreen extends AppCompatActivity {
         int[] delIR = {R.drawable.del_tag_name};
         int delTagNameWidth = screenWidth*DEL_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
         int delTagNameHeight = screenHeight*DEL_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        delTagName = new GameObject2D(this, 0, 0,
+        int delTagNameXPos = screenWidth-delTagNameWidth;
+        int delTagNameYPos = bibliotecaTagNameYPos + delTagNameHeight;
+        delTagNameXPosLimit = miTagNameXPos;
+        delTagNameAnimationSpeed = (((float)screenWidth)*DEL_TAG_NAME_ANIMATION_SPEED)/
+                ((float)ORIGINAL_SCREEN_WIDTH);
+        delTagName = new GameObject2D(this, delTagNameXPos, delTagNameYPos,
                 delTagNameWidth, delTagNameHeight, delIR);
 
 
@@ -151,8 +160,8 @@ public class PresentationScreen extends AppCompatActivity {
 
         layout.addView(miTagName);
         layout.addView(bibliotecaTagName);
+        layout.addView(delTagName);
         // I will uncomment when the words xPos and YPos are ready
-        //layout.addView(delTagName);
         //layout.addView(conocimientoTagName);
     }
 }
