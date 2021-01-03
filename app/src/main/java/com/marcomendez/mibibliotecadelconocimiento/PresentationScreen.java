@@ -29,13 +29,13 @@ public class PresentationScreen extends AppCompatActivity {
     private static final float MI_TAG_NAME_ANIMATION_SPEED = 10;
     private static final float BIBLIOTECA_TAG_NAME_ANIMATION_SPEED = 5;
     private static final float DEL_TAG_NAME_ANIMATION_SPEED = 10;
-    private static final float CONOCIMIENTO_TAG_NAME_ANIMATION_SPEED = 10;
+    private static final float CONOCIMIENTO_TAG_NAME_ANIMATION_SPEED = 32;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
     private int screenWidth,screenHeight,miTagNameYPosLimit,bibliotecaTagNameXPosLimit;
     private float miTagNameAnimationSpeed,bibliotecaTagNameAnimationSpeed,delTagNameAnimationSpeed;
-    private float conocimientoTagNameAnimationSpeed,delTagNameXPosLimit;
+    private float conocimientoTagNameAnimationSpeed,delTagNameXPosLimit,conocimientoTagNameYPosLimit;
     private volatile boolean appHasFocus;
 
     @Override
@@ -79,16 +79,20 @@ public class PresentationScreen extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(miTagName.getYPos() <= miTagNameYPosLimit){
+                if(miTagName.getYPos() < miTagNameYPosLimit){
                     miTagName.setYPos(miTagName.getYPos() + miTagNameAnimationSpeed);
                 }
 
-                if(bibliotecaTagName.getXPos() <= bibliotecaTagNameXPosLimit){
+                if(bibliotecaTagName.getXPos() < bibliotecaTagNameXPosLimit){
                     bibliotecaTagName.setXPos(bibliotecaTagName.getXPos() + bibliotecaTagNameAnimationSpeed);
                 }
 
-                if(delTagName.getXPos() >= delTagNameXPosLimit){
+                if(delTagName.getXPos() > delTagNameXPosLimit){
                     delTagName.setXPos(delTagName.getXPos() - delTagNameAnimationSpeed);
+                }
+
+                if(conocimientoTagName.getYPos() > conocimientoTagNameYPosLimit){
+                    conocimientoTagName.setYPos(conocimientoTagName.getYPos() - conocimientoTagNameAnimationSpeed);
                 }
             }
         });
@@ -155,13 +159,17 @@ public class PresentationScreen extends AppCompatActivity {
         int[] conocimientoIR = {R.drawable.conocimiento_tag_name};
         int conocimientoTagNameWidth = screenWidth*CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH/ORIGINAL_SCREEN_WIDTH;
         int conocimientoTagNameHeight = screenHeight*CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT/ORIGINAL_SCREEN_HEIGHT;
-        conocimientoTagName = new GameObject2D(this,0,0,
+        int conocimientoTagNameXPos = (screenWidth/2)-(conocimientoTagNameWidth/2);
+        int conocimientoTagNameYpos = screenHeight-conocimientoTagNameHeight;
+        conocimientoTagNameYPosLimit = delTagNameYPos + delTagNameHeight + conocimientoTagNameHeight;
+        conocimientoTagNameAnimationSpeed = (((float)screenHeight)*CONOCIMIENTO_TAG_NAME_ANIMATION_SPEED)/
+                ((float)ORIGINAL_SCREEN_HEIGHT);
+        conocimientoTagName = new GameObject2D(this,conocimientoTagNameXPos,conocimientoTagNameYpos,
                 conocimientoTagNameWidth,conocimientoTagNameHeight,conocimientoIR);
 
         layout.addView(miTagName);
         layout.addView(bibliotecaTagName);
         layout.addView(delTagName);
-        // I will uncomment when the words xPos and YPos are ready
-        //layout.addView(conocimientoTagName);
+        layout.addView(conocimientoTagName);
     }
 }
