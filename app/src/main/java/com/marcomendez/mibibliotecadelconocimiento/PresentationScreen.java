@@ -26,12 +26,16 @@ public class PresentationScreen extends AppCompatActivity {
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_WIDTH = 864;
     private static final int CONOCIMIENTO_TAG_NAME_ORIGINAL_HEIGHT = 73;
     private static final int DELTA_TIME = 32;
-    private static final int MI_TAG_NAME_ANIMATION_SPEED = 10;
-    private static final int BIBLIOTECA_TAG_NAME_ANIMATION_SPEED = 5;
+    private static final float MI_TAG_NAME_ANIMATION_SPEED = 10;
+    private static final float BIBLIOTECA_TAG_NAME_ANIMATION_SPEED = 5;
+    private static final float DEL_TAG_NAME_ANIMATION_SPEED = 10;
+    private static final float CONOCIMIENTO_TAG_NAME_ANIMATION_SPEED = 10;
 
     private RelativeLayout layout;
     private GameObject2D miTagName,delTagName,conocimientoTagName,bibliotecaTagName;
     private int screenWidth,screenHeight,miTagNameYPosLimit,bibliotecaTagNameXPosLimit;
+    private float miTagNameAnimationSpeed,bibliotecaTagNameAnimationSpeed,delTagNameAnimationSpeed;
+    private float conocimientoTagNameAnimationSpeed;
     private volatile boolean appHasFocus;
 
     @Override
@@ -76,11 +80,11 @@ public class PresentationScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if(miTagName.getYPos() <= miTagNameYPosLimit){
-                    miTagName.setYPos(miTagName.getYPos() + MI_TAG_NAME_ANIMATION_SPEED);
+                    miTagName.setYPos(miTagName.getYPos() + miTagNameAnimationSpeed);
                 }
 
                 if(bibliotecaTagName.getXPos() <= bibliotecaTagNameXPosLimit){
-                    bibliotecaTagName.setXPos(bibliotecaTagName.getXPos() + BIBLIOTECA_TAG_NAME_ANIMATION_SPEED);
+                    bibliotecaTagName.setXPos(bibliotecaTagName.getXPos() + bibliotecaTagNameAnimationSpeed);
                 }
             }
         });
@@ -114,6 +118,8 @@ public class PresentationScreen extends AppCompatActivity {
         int miTagNameXPos = (screenWidth/2)-(miTagNameWidth/2);
         int miTagNameYPos = 0;
         miTagNameYPosLimit = screenHeight/5;
+        miTagNameAnimationSpeed = (((float)screenHeight)*MI_TAG_NAME_ANIMATION_SPEED)/
+                ((float)ORIGINAL_SCREEN_HEIGHT);
         miTagName = new GameObject2D(this, miTagNameXPos, miTagNameYPos, miTagNameWidth,
                 miTagNameHeight, miIR);
 
@@ -124,6 +130,8 @@ public class PresentationScreen extends AppCompatActivity {
         int bibliotecaTagNameXPos = 0;
         int bibliotecaTagNameYPos = miTagNameYPosLimit + miTagNameHeight;
         bibliotecaTagNameXPosLimit = (screenWidth/2)-(bibliotecaTagNameWidth/2);
+        bibliotecaTagNameAnimationSpeed = (((float)screenWidth)*BIBLIOTECA_TAG_NAME_ANIMATION_SPEED)/
+                ((float)ORIGINAL_SCREEN_WIDTH);
         bibliotecaTagName = new GameObject2D(this, bibliotecaTagNameXPos, bibliotecaTagNameYPos,
                 bibliotecaTagNameWidth, bibliotecaTagNameHeight,bibliotecaIR);
 
